@@ -1,0 +1,9 @@
+---
+- name: Log some_parameter from role2 tasks file
+  debug:
+    msg: "***** Log 0004 some_parameter: some_parameter={{ some_parameter }}"
+  when: some_parameter is defined
+- name: Log some_parameter undefined from role2 tasks file
+  debug:
+    msg: "***** Log 0004: some_parameter is undefined"
+  when: some_parameter is undefined

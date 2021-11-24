@@ -1,0 +1,48 @@
+---
+- name: Ansible roles and variables playbook
+  hosts: localhost
+#  vars:
+#    some_parameter: val_playbook_vars
+  tasks:
+  - name: Log playbook first
+    debug:
+      msg: "Playbook before include & imports: some_parameter={{ some_parameter }}"
+    when: some_parameter is defined
+  - name: Log playbook first, variable undefined
+    debug:
+      msg: "Playbook before include & imports: some_parameter is undefined"
+    when: some_parameter is undefined
+
+  - name: Dynamically include role1
+    include_role:
+      name: role1
+
+  - name: Log variable some_parameter from playbook before include
+    debug:
+      msg: "***** Log 0001: some_parameter={{ some_parameter }}"
+    when: some_parameter is defined
+  - name: Log variable some_parameter from playbook before include
+    debug:
+      msg: "***** Log 0001: some_parameter is undefined"
+    when: some_parameter is undefined
+
+  - name: Dynamically include a role1, setting variable
+    include_role:
+      name: role1
+#    vars:
+#      some_parameter: val_playbook_dyn_include
+
+  - name: Log variable some_parameter from playbook before import
+    debug:
+      msg: "***** Log 0002: some_parameter={{ some_parameter }}"
+    when: some_parameter is defined
+  - name: Log variable some_parameter from playbook before import
+    debug:
+      msg: "***** Log 0002: some_parameter is undefined"
+    when: some_parameter is undefined
+
+  - name: Import a role1, setting variable
+    import_role:
+      name: role1
+#    vars:
+#      some_parameter: val_playbook_stat_import
